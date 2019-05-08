@@ -1,0 +1,76 @@
+<div class="container" style="width:40%">
+<h5 class="text-center">Registration Form</h5>
+
+<!-- {{customer | json}} -->
+<!-- {{customerForm.value | json}} -->
+{{customerForm.form.valid}}
+
+<form (ngSubmit)="registerNewCustomer()" #customerForm = "ngForm">
+<div class="form-group">
+    <label class="form-label">Name</label>
+    <input type="text" class="form-control" required name="name" [(ngModel)]="customer.name"  #name ="ngModel"
+    [class.is-invalid]="name.touched && name.invalid" required/>
+    <div class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</div>
+</div>
+{{name.className}}
+<div class="form-group">
+    <label class="form-label">Email</label>
+    <input type="email" class="form-control" required name="email" [(ngModel)]="customer.email" />
+</div>
+<div class="form-group">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" required name="password" [(ngModel)] = "customer.password" />
+</div>
+<div class="form-group">
+        <label class="form-label">Contact</label>
+        <input type="number" class="form-control" name="phone" [(ngModel)]="customer.contact" pattern="^\d{10}$" #phone="ngModel"
+        [class.is-invalid]="phone.touched && phone.invalid"  required/>
+        <div *ngIf="phone.errors && phone.touched ">
+<div class="text-danger" *ngIf="phone.errors?.required">Phone number is required</div>
+<div class="text-danger" *ngIf="phone.errors?.pattern" >Phone no must be required</div>
+
+        </div>
+</div>
+<div class="form-group" >
+    <label class="form-label">Gender</label> &nbsp;
+    <div class="form-check form-check-inline">
+        <input type="radio" name="gender" value="male" class="form-check-input" [(ngModel)]="customer.gender"/>Male
+    </div>
+    <div class="form-check form-check-inline">
+            <input type="radio" name="gender" value="female"  [(ngModel)]="customer.gender" class="form-check-input">Female
+    </div>
+</div>
+<div class="form-group">
+    <label class="form-label">Address</label>
+    <input type="text" class="form-control"  name="address" [(ngModel)]="customer.address">
+</div>
+
+<div class="form-group">
+        <label class="form-label">State</label>
+        <select class="form-control" name="state" [(ngModel)]="customer.address.state">
+            <option value="">------Select------</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+
+        </select>
+</div>
+<div class="form-group">
+        <label class="form-label">City</label>
+        <select class="form-control" name="city" [(ngModel)]="customer.address.city">
+            <option value="">------Select------</option>
+            <option value="Bhopal">Bhopal</option>
+            <option value="Pune">Pune</option>
+            <option value="Mumbai ">Mumbai</option>
+            <option value="Indore">Indore</option>
+
+        </select>
+</div>
+<div class="form-group">
+    <label class="from-label" >Postal Code</label>
+    <input type="number" class="form-control" name="postalCode" [(ngModel)]="customer.address.postalCode">
+</div><br>
+<button type="submit" class="btn btn-block bg-secondary" [disabled]="customerForm.form.invalid">Sign Up</button><br>
+</form>
+</div>
